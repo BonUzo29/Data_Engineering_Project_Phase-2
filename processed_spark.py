@@ -48,15 +48,14 @@ def get_cpu_utilization():
 
 def send_to_kafka(producer, data):
     try:
-        producer.send(KAFKA_TOPIC, data.encode('utf-8'))
+        # Format the data as a comma-separated string
+        formatted_data = f"{data['timestamp']}, Power Draw: {data['power_draw']} W, Temperature: {data['temperature']} °C, CPU Utilization: {data['cpu_utilization']} %"
+        
+        producer.send(KAFKA_TOPIC, formatted_data.encode('utf-8'))
         producer.flush()
-        print(f"Sent to Kafka topic {KAFKA_TOPIC}: {data}")
+        print(f"Sent to Kafka topic {KAFKA_TOPIC}: {formatted_data}")
     except Exception as e:
         print(f"Failed to send to Kafka topic {KAFKA_TOPIC}: {e}")
-
-def process_data(data):
-    # Here you can implement any processing you want to apply to the data
-    return data.upper()
 
 def store_to_mysql(mysql_conn, data):
     try:
@@ -107,12 +106,16 @@ def main():
             power_draw, temperature = get_gpu_metrics()
             cpu_utilization = get_cpu_utilization()
 
-            # Format raw data
-            raw_data = f"{timestamp}, Power Draw: {power_draw} W, Temperature: {temperature} °C, CPU Utilization: {cpu_utilization} %"
-            print("Raw Data:", raw_data)
+            # Format data into a dictionary
+            data = {
+                'timestamp': timestamp,
+                'power_draw': power_draw,
+                'temperature': temperature,
+                'cpu_utilization': cpu_utilization
+            }
 
-            # Send raw data to Kafka
-            send_to_kafka(producer, raw_data)
+            # Send data to Kafka
+            send_to_kafka(producer, data)
 
             # Sleep for 1 second
             time.sleep(1)
@@ -122,38 +125,4 @@ def main():
         mysql_conn.close()
 
 if __name__ == "__main__":
-    # Create Spark session
-    spark = SparkSession.builder \
-        .appName("KafkaSparkStructuredStreaming") \
-        .config("spark.sql.shuffle.partitions", "1") \
-        .getOrCreate()
-
-    # Set log level to ERROR
-    spark.sparkContext.setLogLevel("ERROR")
-
-    # Read data from Kafka
-    df = spark \
-        .readStream \
-        .format("kafka") \
-        .option("kafka.bootstrap.servers", "localhost:9092") \
-        .option("subscribe", "gpu_metrics") \
-        .load()
-
-    # Transform value_str to columns and select relevant columns
-    df = df.withColumn('value_str', F.split(df['value'].cast("string"), ','))
-    df = df.withColumn('power_draw', df['value_str'].getItem(1).cast("float"))
-    df = df.withColumn('temperature', df['value_str'].getItem(2).cast("float"))
-    df = df.withColumn('cpu_utilization', df['value_str'].getItem(3).cast("float"))
-    df = df.select('key', 'value', 'topic', 'partition', 'offset', 'timestamp', 'timestampType', 
-                   'value_str', 'power_draw', 'temperature', 'cpu_utilization')
-
-    # Write the transformed data to console for debugging
-    query = df.writeStream \
-        .outputMode("append") \
-        .format("console") \
-        .option("truncate", "false") \
-        .start()
-
-    query.awaitTermination()
-
-    spark.stop()
+    main()
