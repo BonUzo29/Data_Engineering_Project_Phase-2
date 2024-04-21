@@ -1,0 +1,194 @@
+version: "3.6"
+services:
+
+  MySQL_Engine:
+    command:
+      - "mysqld"
+    container_name: "MySQL_Engine"
+    entrypoint:
+      - "docker-entrypoint.sh"
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "GOSU_VERSION=1.16"
+      - "MYSQL_MAJOR=innovation"
+      - "MYSQL_VERSION=8.2.0-1.el8"
+      - "MYSQL_SHELL_VERSION=8.0.35-1.el8"
+    hostname: "1998442be15c"
+    image: "mysql:latest"
+    ipc: "private"
+    logging:
+      driver: "json-file"
+      options: {}
+    mac_address: "02:42:ac:11:00:03"
+    network_mode: "bridge"
+    ports:
+      - "3306:3306/tcp"
+    volumes:
+      - "DE-PROJECT:/var/lib/mysql"
+
+
+
+
+  kafka-container:
+    command:
+      - "/etc/kafka/server.properties"
+    container_name: "kafka-container"
+    entrypoint:
+      - "entrypoint.sh"
+    environment:
+      - "KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181"
+      - "KAFKA_ADVERTISED_PORT=9092"
+      - "ZOOKEEPER_HOST=172.17.0.2"
+      - "KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092"
+      - "TZ=UTC"
+      - "PATH=/opt/kafka/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "ZOOKEEPER_PORT=2181"
+    hostname: "codespaces-ff3822"
+    image: "ubuntu/kafka:latest"
+    ipc: "private"
+    labels:
+      maintainer: "Ubuntu Server team <ubuntu-server@lists.ubuntu.com>"
+      org.opencontainers.image.ref.name: "ubuntu"
+      org.opencontainers.image.version: "22.04"
+    logging:
+      driver: "json-file"
+      options: {}
+    network_mode: "host"
+    ports:
+      - "9092:9092/tcp"
+
+
+
+
+  redis:
+    command:
+      - "--save"
+      - "60"
+      - "1"
+      - "--loglevel"
+      - "warning"
+    container_name: "redis"
+    entrypoint:
+      - "docker-entrypoint.sh"
+    environment:
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "GOSU_VERSION=1.16"
+      - "REDIS_VERSION=7.2.3"
+      - "REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-7.2.3.tar.gz"
+      - "REDIS_DOWNLOAD_SHA=3e2b196d6eb4ddb9e743088bfc2915ccbb42d40f5a8a3edd8cb69c716ec34be7"
+    expose:
+      - "6379/tcp"
+    hostname: "79a598cd9216"
+    image: "redis"
+    ipc: "private"
+    logging:
+      driver: "json-file"
+      options: {}
+    mac_address: "02:42:ac:11:00:06"
+    network_mode: "bridge"
+    volumes:
+      - "17a65ae140870ee9addb98be75e16a43bde2f3577eb96b6729f29a0eaf92c452:/data"
+    working_dir: "/data"
+
+
+
+
+  redis-container:
+    command:
+      - "redis-server"
+    container_name: "redis-container"
+    entrypoint:
+      - "docker-entrypoint.sh"
+    environment:
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "GOSU_VERSION=1.16"
+      - "REDIS_VERSION=7.2.3"
+      - "REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-7.2.3.tar.gz"
+      - "REDIS_DOWNLOAD_SHA=3e2b196d6eb4ddb9e743088bfc2915ccbb42d40f5a8a3edd8cb69c716ec34be7"
+    expose:
+      - "6379/tcp"
+    hostname: "b4563b2e2314"
+    image: "redis"
+    ipc: "private"
+    logging:
+      driver: "json-file"
+      options: {}
+    mac_address: "02:42:ac:11:00:04"
+    network_mode: "bridge"
+    volumes:
+      - "67bd78a5423db161044a7a36afd4d8daefd5c4be633b6d079178d61c27209bf2:/data"
+    working_dir: "/data"
+
+
+
+
+  redis-insight-container:
+    command:
+      - "python"
+      - "entry.pyc"
+    container_name: "redis-insight-container"
+    entrypoint:
+      - "bash"
+      - "./docker-entry.sh"
+    environment:
+      - "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "LANG=C.UTF-8"
+      - "GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D"
+      - "PYTHON_VERSION=3.11.0rc2"
+      - "PYTHON_PIP_VERSION=22.2.2"
+      - "PYTHON_SETUPTOOLS_VERSION=63.2.0"
+      - "PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/5eaac1050023df1f5c98b173b248c260023f2278/public/get-pip.py"
+      - "PYTHON_GET_PIP_SHA256=5aefe6ade911d997af080b315ebcb7f882212d070465df544e1175ac2be519b4"
+      - "PIP_DISABLE_PIP_VERSION_CHECK=1"
+      - "PIP_NO_CACHE_DIR=1"
+      - "APP_PLATFORM=docker"
+    hostname: "c8e516affb77"
+    image: "redislabs/redisinsight:latest"
+    ipc: "private"
+    logging:
+      driver: "json-file"
+      options: {}
+    mac_address: "02:42:ac:11:00:05"
+    network_mode: "bridge"
+    ports:
+      - "8001:8001/tcp"
+    user: "redisinsight"
+    working_dir: "/app"
+
+
+
+
+  zookeeper:
+    command:
+      - "/etc/kafka/zookeeper.properties"
+    container_name: "zookeeper"
+    entrypoint:
+      - "/opt/kafka/bin/zookeeper-server-start.sh"
+    environment:
+      - "TZ=UTC"
+      - "PATH=/opt/kafka/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    hostname: "681bc0d16de8"
+    image: "ubuntu/zookeeper:latest"
+    ipc: "private"
+    labels:
+      maintainer: "Ubuntu Server team <ubuntu-server@lists.ubuntu.com>"
+      org.opencontainers.image.ref.name: "ubuntu"
+      org.opencontainers.image.version: "22.04"
+    logging:
+      driver: "json-file"
+      options: {}
+    mac_address: "02:42:ac:11:00:02"
+    network_mode: "bridge"
+    ports:
+      - "2181:2181/tcp"
+
+
+
+volumes:
+  17a65ae140870ee9addb98be75e16a43bde2f3577eb96b6729f29a0eaf92c452:
+    external: true
+  67bd78a5423db161044a7a36afd4d8daefd5c4be633b6d079178d61c27209bf2:
+    external: true
+  DE-PROJECT:
+    external: true

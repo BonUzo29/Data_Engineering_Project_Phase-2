@@ -1,0 +1,7 @@
+numpy
+mysql-connector-python
+sqlalchemy
+confluent_kafka
+pandas
+kafka
+
