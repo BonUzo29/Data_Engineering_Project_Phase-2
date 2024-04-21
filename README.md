@@ -125,8 +125,8 @@ The 'processed_spark.py', when it works correctly returns this:
     24/04/21 23:24:02 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.163.235:46231 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.163.235, 46231, None)
     24/04/21 23:24:02 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.163.235, 46231, None)
     24/04/21 23:24:02 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.163.235, 46231, None)
-    24/04/21 23:24:02 INFO SharedState: Setting hive.metastore.warehouse.dir ('null') to the value of spark.sql.warehouse.dir ('file:/home/blackjack/GITHUB%20PROJECTS/bona/spark-warehouse').
-    24/04/21 23:24:02 INFO SharedState: Warehouse path is 'file:/home/blackjack/GITHUB%20PROJECTS/bona/spark-warehouse'.
+    24/04/21 23:24:02 INFO SharedState: Setting hive.metastore.warehouse.dir ('null') to the value of spark.sql.warehouse.dir ('file:/home/bona/spark-warehouse').
+    24/04/21 23:24:02 INFO SharedState: Warehouse path is 'file:/home/bona/spark-warehouse'.
     -------------------------------------------
     Batch: 0
     -------------------------------------------
