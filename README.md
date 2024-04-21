@@ -191,7 +191,7 @@ To demonstrate further data processing and transformations that PySpark is capab
     +-------------------+----------+-----------+---------------+---------------------+-----------+---------------+----------------+
 
 
-Ask PySpark runs, we can see more under-the-hood operations by visiting this local URL: 
+As PySpark container runs, we can see more under-the-hood operations by visiting this local URL: 
 
     http://192.168.163.235:4040/StreamingQuery/statistics/?id=50d6909a-89ad-42e8-be3b-34de702b8b28
 
