@@ -171,3 +171,56 @@ services:
 networks:
   bridge:
     external: true
+
+
+
+
+
+pyspark-elyra:
+    command:
+      - start-notebook.sh
+    container_name: pyspark-elyra
+    entrypoint:
+      - tini
+      - -g
+      - --
+    environment:
+      - PATH=/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/spark/bin
+      - DEBIAN_FRONTEND=noninteractive
+      - CONDA_DIR=/opt/conda
+      - SHELL=/bin/bash
+      - NB_USER=jovyan
+      - NB_UID=1000
+      - NB_GID=100
+      - LC_ALL=en_US.UTF-8
+      - LANG=en_US.UTF-8
+      - LANGUAGE=en_US.UTF-8
+      - HOME=/home/jovyan
+      - XDG_CACHE_HOME=/home/jovyan/.cache/
+      - APACHE_SPARK_VERSION=3.0.2
+      - HADOOP_VERSION=2.7
+      - JUPYTER_ENABLE_LAB=yes
+      - SPARK_HOME=/usr/local/spark
+      - 'SPARK_OPTS=--driver-java-options=-Xms1024M --driver-java-options=-Xmx4096M
+        --driver-java-options=-Dlog4j.logLevel=info'
+    hostname: 6b970de0ad51
+    image: ruslanmv/pyspark-elyra:3.0.2
+    labels:
+      maintainer: 'Jupyter Project <jupyter@googlegroups.com>'
+    logging:
+      driver: json-file
+      options: {}
+    networks:
+      - bridge
+    ports:
+      - 8888:8888/tcp
+    stdin_open: true
+    tty: true
+    user: 1000
+    volumes:
+      - /home/project_directory:/home/jovyan/work
+    working_dir: /home/jovyan
+networks:
+  bridge:
+    external: true
+
