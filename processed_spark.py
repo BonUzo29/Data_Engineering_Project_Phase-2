@@ -1,31 +1,40 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import split
+import pyspark.sql.functions as F
 
-spark = SparkSession.builder \
-    .appName("GPU_Metrics_Processing") \
-    .getOrCreate()
+if __name__ == "__main__":
+    spark = SparkSession.builder \
+        .appName("KafkaSparkStructuredStreaming") \
+        .config("spark.sql.shuffle.partitions", "1") \
+        .getOrCreate()
 
-# Read from Kafka topic
-df = spark \
-    .readStream \
-    .format("kafka") \
-    .option("kafka.bootstrap.servers", "localhost:9092") \
-    .option("subscribe", "processed_gpu_metrics") \
-    .load()
+    # Set log level to ERROR
+    spark.sparkContext.setLogLevel("ERROR")
 
-# Convert value column to string and split on commas
-df = df.withColumn("value_str", df["value"].cast("string"))
-split_cols = split(df["value_str"], ",")
-df = df.withColumn("timestamp", split_cols.getItem(0))
-df = df.withColumn("power_draw", split_cols.getItem(1))
-df = df.withColumn("temperature", split_cols.getItem(2))
-df = df.withColumn("cpu_utilization", split_cols.getItem(3))
+    # Read data from Kafka
+    df = spark \
+        .readStream \
+        .format("kafka") \
+        .option("kafka.bootstrap.servers", "localhost:9092") \
+        .option("subscribe", "gpu_metrics") \
+        .load()
 
-# You can further process or write this DataFrame as needed
-query = df \
-    .writeStream \
-    .outputMode("append") \
-    .format("console") \
-    .start()
+    # Transform value_str to columns
+    split_col = F.split(df['value'].cast("string"), ',')
+    df = df.withColumn('value_str', split_col)
+    df = df.withColumn('power_draw', df['value_str'].getItem(0).cast("float") * 100)
+    df = df.withColumn('temperature', df['value_str'].getItem(1).cast("float") * 100)
+    df = df.withColumn('cpu_utilization', df['value_str'].getItem(2).cast("float"))
 
-query.awaitTermination()
+    # Select relevant columns
+    df = df.select('key', 'value', 'topic', 'partition', 'offset', 'timestamp', 'timestampType', 
+                   'value_str', 'power_draw', 'temperature', 'cpu_utilization')
+
+    # Write the transformed data to console for debugging
+    query = df.writeStream \
+        .outputMode("append") \
+        .format("console") \
+        .start()
+
+    query.awaitTermination()
+
+    spark.stop()
