@@ -40,7 +40,7 @@ To enter db: use `mysql --user=root --password=root`
 ## Create DB in MySQL
     mysql -u root  -p
 
---------
+Then create 2 tables, one for our processor metrics and a second for Kafka-processed transformations.
 
     CREATE DATABASE gpu_metrics;
     USE gpu_metrics;
@@ -52,6 +52,20 @@ To enter db: use `mysql --user=root --password=root`
         temperature INT NOT NULL,
         cpu_utilization FLOAT NOT NULL
     );
+
+
+
+    CREATE TABLE IF NOT EXISTS processed_gpu_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    datetime DATETIME NOT NULL,
+    power_draw FLOAT NOT NULL,
+    temperature INT NOT NULL,
+    cpu_utilization FLOAT NOT NULL
+);
+
+
+
+    
 
 # PhpMyAdmin web-UI
 
