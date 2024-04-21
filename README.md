@@ -68,9 +68,20 @@ To enter db: use `mysql --user=root --password=root`
 ![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/37c2d409-3256-453b-b39d-549525da3246)
 
 - We can alternatively graph the values in Grafana container running on docker.
-  
+    
   We first need to create the connection to the database using our MySQL docker container IP address.
+  
   ![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/07455eb7-1e33-4602-870b-3210aa5e08bb)
+
+- Once connection is established, we can then use a line chart or whatever is suitable inside Grafana to chart it.
+
+  ![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/1bd5deba-6685-40b8-826e-5fd7987ccd01)
+
+  The panel looks like this:
+
+  ![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/178dcabd-48da-45e0-81c2-30092f0e6abf)
+
+
 
 
 
