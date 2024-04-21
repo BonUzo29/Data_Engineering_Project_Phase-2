@@ -158,7 +158,14 @@ The 'processed_spark.py', when it works correctly returns this:
     -------------------------------------------
 
 
-To demonstrate further data processing and transformations that PySpark is capable of, we created a new script called `further-transformations-spark.py`. When we run it we produce columns with more transormations as seen below:
+To demonstrate further data processing and transformations that PySpark is capable of, we created a new script called `further-transformations-spark.py`.
+This script now adds some columns. The `calculate_metrics` UDF now calculates these new metrics:
+
+`temp_change`: Temperature change compared to the previous row.
+`cpu_util_change`: CPU utilization change compared to the previous row.
+`power_efficiency`: Power efficiency, which is the ratio of power_draw to cpu_utilization.
+
+When we run it we produce columns with more transormations as seen below:
 
 
     -------------------------------------------
