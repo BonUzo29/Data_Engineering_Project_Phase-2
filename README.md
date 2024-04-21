@@ -56,10 +56,16 @@ To enter db: use `mysql --user=root --password=root`
 # PhpMyAdmin web-UI
 
 - First we log into the PhpMyAdmin docker container using 'root' as password and username.
+  
 ![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/908f469d-4d3f-4cd2-a783-f7a1f52a4796)
 
 - We can access and view the streaming data from Kafka here, in phpMyAdmin
+  
 ![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/d2f6173c-8f0d-498f-b343-867cb0c9a643)
+
+- We can quickly visualize a part (row 400 to 450) of the readings of the values saved in our MySQL database using the phpMyAdmin 'Create Chart' feature.
+
+![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/37c2d409-3256-453b-b39d-549525da3246)
 
 
 
