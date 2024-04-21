@@ -93,10 +93,12 @@ To enter db: use `mysql --user=root --password=root`
 
 ### Create kafka topic
 First topic 'gpumetrics' will lodge all our value from from the computer
-    `kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic gpumetrics`
+    
+    kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic gpumetrics
 
 Second topic 'processed_gpu_metrics' for the Kafka processed data specifically.
-    `kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic processed_gpu_metrics`
+
+    kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic processed_gpu_metrics
 
 
 
