@@ -77,6 +77,11 @@ To enter db: use `mysql --user=root --password=root`
 
   ![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/1bd5deba-6685-40b8-826e-5fd7987ccd01)
 
+- More charting options
+
+  ![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/0fabaefe-f111-4e1c-9434-92ad76027201)
+
+
 
 
 
