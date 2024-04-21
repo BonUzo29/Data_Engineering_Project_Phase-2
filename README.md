@@ -53,6 +53,7 @@ Then create 2 tables, one for our processor metrics and a second for Kafka-proce
         cpu_utilization FLOAT NOT NULL
     );
 
+Create table for Kafka-processed transormations
 
 
     CREATE TABLE IF NOT EXISTS processed_gpu_data (
@@ -62,9 +63,6 @@ Then create 2 tables, one for our processor metrics and a second for Kafka-proce
     temperature INT NOT NULL,
     cpu_utilization FLOAT NOT NULL
 );
-
-
-
     
 
 # PhpMyAdmin web-UI
