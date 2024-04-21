@@ -191,7 +191,9 @@ To demonstrate further data processing and transformations that PySpark is capab
     +-------------------+----------+-----------+---------------+---------------------+-----------+---------------+----------------+
 
 
-Ask PySpark runs, we can see more under-the-hood operations by visiting this local URL: `http://192.168.163.235:4040/StreamingQuery/statistics/?id=50d6909a-89ad-42e8-be3b-34de702b8b28`
+Ask PySpark runs, we can see more under-the-hood operations by visiting this local URL: 
+
+    http://192.168.163.235:4040/StreamingQuery/statistics/?id=50d6909a-89ad-42e8-be3b-34de702b8b28
 
 ![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/ab16748f-3b28-4581-a05d-3e13e4689ff6)
 
