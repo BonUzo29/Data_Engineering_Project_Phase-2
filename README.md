@@ -1,7 +1,9 @@
 # DEPortfolio
 
-![image](https://github.com/BonUzo29/DEPortfolio/assets/131703145/f43178cb-207b-4821-ac59-f0288130a284)
+![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/6956d48b-d41d-4b5c-a305-a626ffb6a7b3)
+
 Realtime ingested CPU readings screenshot.
+
 
 
 ### Packages needed
