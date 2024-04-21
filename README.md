@@ -85,22 +85,20 @@ To enter db: use `mysql --user=root --password=root`
 
 
 
-
+# Zookeeper
+    docker run -d --name zookeeper -e TZ=UTC -p 2181:2181 ubuntu/zookeeper:latest
 
 # Create Kafka Container
     docker run -d --name kafka-container -p 9092:9092 --network host -e TZ=UTC -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 -e KAFKA_ADVERTISED_PORT=9092 -e ZOOKEEPER_HOST=172.17.0.3 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 ubuntu/kafka:latest
 
 ### Create kafka topic
 First topic 'gpumetrics' will lodge all our value from from the computer
-    kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic gpumetrics
+    `kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic gpumetrics`
 
 Second topic 'processed_gpu_metrics' for the Kafka processed data specifically.
-    kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic processed_gpu_metrics
+    `kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic processed_gpu_metrics`
 
 
 
-# Zookeeper
-    docker run -d --name zookeeper -e TZ=UTC -p 2181:2181 ubuntu/zookeeper:latest
-# 
 
 
