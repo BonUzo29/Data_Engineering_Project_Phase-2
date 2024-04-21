@@ -105,5 +105,56 @@ Second topic 'processed_gpu_metrics' for the Kafka processed data specifically.
 
 
 
+# PySpark
+
+Initialize our docker container using this:
+
+    docker run -it --rm   -v /home/blackjack/GITHUB\ PROJECTS/bona:/mnt   ruslanmv/pyspark-elyra:3.0.2
+    
+To mount a volume for persistence, we us the '-v' flag as shown above. This mounts our local directory `/home/bona` to the container's `/mnt` directory:
+
+    -v /home/blackjack/GITHUB\ PROJECTS/bona:/mnt: 
+
+We submit the PySpark script that receives the Kafka values using this:
+    
+    spark-submit   --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.1   processed_spark.py
+
+
+The 'processed_spark.py', when it works correctly returns this:
+
+    24/04/21 23:24:02 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.163.235:46231 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.163.235, 46231, None)
+    24/04/21 23:24:02 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.163.235, 46231, None)
+    24/04/21 23:24:02 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.163.235, 46231, None)
+    24/04/21 23:24:02 INFO SharedState: Setting hive.metastore.warehouse.dir ('null') to the value of spark.sql.warehouse.dir ('file:/home/blackjack/GITHUB%20PROJECTS/bona/spark-warehouse').
+    24/04/21 23:24:02 INFO SharedState: Warehouse path is 'file:/home/blackjack/GITHUB%20PROJECTS/bona/spark-warehouse'.
+    -------------------------------------------
+    Batch: 0
+    -------------------------------------------
+    +----------------+----------+-----------+---------------+
+    |parsed_timestamp|power_draw|temperature|cpu_utilization|
+    +----------------+----------+-----------+---------------+
+    +----------------+----------+-----------+---------------+
+    
+    -------------------------------------------
+    Batch: 1
+    -------------------------------------------
+    +-------------------+----------+-----------+---------------+
+    |   parsed_timestamp|power_draw|temperature|cpu_utilization|
+    +-------------------+----------+-----------+---------------+
+    |2024-04-21 23:24:06|      4.02|         47|           46.8|
+    +-------------------+----------+-----------+---------------+
+    
+    -------------------------------------------
+    Batch: 2
+    -------------------------------------------
+    +-------------------+----------+-----------+---------------+
+    |   parsed_timestamp|power_draw|temperature|cpu_utilization|
+    +-------------------+----------+-----------+---------------+
+    |2024-04-21 23:24:08|      4.16|         47|           16.3|
+    +-------------------+----------+-----------+---------------+
+    
+    -------------------------------------------
+    Batch: 3
+    -------------------------------------------
 
 
