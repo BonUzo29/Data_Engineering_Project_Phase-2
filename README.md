@@ -192,6 +192,6 @@ To demonstrate further data processing and transformations that PySpark is capab
 
 
 
-    ![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/ab16748f-3b28-4581-a05d-3e13e4689ff6)
+![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/ab16748f-3b28-4581-a05d-3e13e4689ff6)
 
 
