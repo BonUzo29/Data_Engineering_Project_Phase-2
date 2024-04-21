@@ -64,7 +64,7 @@ Then create database and table
 
 - We can access and view the streaming data from Kafka here, in phpMyAdmin
   
-![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/d2f6173c-8f0d-498f-b343-867cb0c9a643)
+![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/0312562f-4c0d-4d0b-b080-31fed4412d52)
 
 - We can quickly visualize a part (row 400 to 450) of the readings of the values saved in our MySQL database using the phpMyAdmin 'Create Chart' feature.
 
