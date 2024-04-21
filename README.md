@@ -53,6 +53,16 @@ To enter db: use `mysql --user=root --password=root`
         cpu_utilization FLOAT NOT NULL
     );
 
+# PhpMyAdmin web-UI
+
+- First we log into the PhpMyAdmin docker container using 'root' as password and username.
+![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/908f469d-4d3f-4cd2-a783-f7a1f52a4796)
+
+- We can access and view the streaming data from Kafka here, in phpMyAdmin
+![image](https://github.com/BonUzo29/Data_Engineering_Project_Phase-2/assets/131703145/d2f6173c-8f0d-498f-b343-867cb0c9a643)
+
+
+
 # Create Kafka Container
     docker run -d --name kafka-container -p 9092:9092 --network host -e TZ=UTC -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 -e KAFKA_ADVERTISED_PORT=9092 -e ZOOKEEPER_HOST=172.17.0.3 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 ubuntu/kafka:latest
 
