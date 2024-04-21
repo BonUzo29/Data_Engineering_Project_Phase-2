@@ -26,6 +26,7 @@ Install docker containerizer engine on our IDE (VsCode)
 - MySQL
 - Zookeeper
 - Kafka
+- pyspark[sql-kafka]
 - PhPMyAdmin
 - Grafana
 
